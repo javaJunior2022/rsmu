@@ -20,7 +20,7 @@ create table if not exists students
     name       varchar not null,
     patronymic varchar not null,
     "group"    integer not null,
-    "isActive" boolean
+    is_active  boolean
 );
 
 alter table students
