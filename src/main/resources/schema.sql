@@ -1,3 +1,7 @@
+create sequence students_id_seq1;
+
+alter sequence students_id_seq1 owner to admin;
+
 create table if not exists courses
 (
     id         serial
@@ -14,17 +18,21 @@ alter table courses
 
 create table if not exists students
 (
-    id         serial
-        primary key,
+    id         integer generated always as identity
+        primary key
+        constraint students_pk
+            unique,
     surname    varchar not null,
     name       varchar not null,
     patronymic varchar not null,
-    "group"    integer not null,
+    group_name varchar,
     is_active  boolean
 );
 
 alter table students
     owner to admin;
+
+alter sequence students_id_seq1 owned by students.id;
 
 create table if not exists "studentAndCourses"
 (
@@ -43,12 +51,12 @@ alter table "studentAndCourses"
 
 create table if not exists sessions
 (
-    id          serial
+    id         serial
         primary key,
-    name        varchar not null,
-    start       timestamp with time zone,
-    "maxRating" integer,
-    course_id   integer not null
+    name       varchar not null,
+    start_date timestamp with time zone,
+    max_rating integer,
+    course_id  integer not null
         constraint course_id
             references courses
 );

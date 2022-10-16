@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.Exceptions.CourseAlreadyExistException;
 import ru.Exceptions.CourseNotFoundException;
 import ru.courses.model.Course;
+import ru.courses.model.CourseRequestAddingDto;
 import ru.courses.model.CourseRequestDto;
 import ru.courses.storage.CourseRepository;
 
@@ -25,13 +26,13 @@ private CourseRepository courseRepository;
     }
 
     @Override
-    public CourseRequestDto addCourse(CourseRequestDto courseRequestDto) {
+    public CourseRequestDto addCourse(CourseRequestAddingDto courseRequestDto) {
         log.info ("addCourse ", courseRequestDto);
 
 
         Course course;
         try {
-            course=courseRepository.save(CourseMapper.toEntity(courseRequestDto));
+            course=courseRepository.save(CourseMapper.CourseRequestAddingDto(courseRequestDto));
         } catch (RuntimeException e){
             log.info(String.valueOf(e));
             throw  new CourseAlreadyExistException(courseRequestDto.getName());

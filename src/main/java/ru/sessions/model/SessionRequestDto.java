@@ -1,8 +1,7 @@
-package ru.courses.model;
+package ru.sessions.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +9,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import ru.LocalDateTimeConverter;
 
 import javax.persistence.Convert;
-
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequestDto {
-
+public class SessionRequestDto {
     private Long id;
     private String name;
 
@@ -25,14 +22,10 @@ public class CourseRequestDto {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(required = true, example = "2022-10-14T01:00:00")
     @Convert (converter = LocalDateTimeConverter.class)
-    private LocalDateTime start_date;
+    private LocalDateTime startDate;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @ApiModelProperty(required = true, example = "2022-10-20T01:00:00")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Convert (converter = LocalDateTimeConverter.class)
-    private LocalDateTime end_date;
+    private Long maxRating;
 
-    private Boolean isActive;
+    private Long course_id;
 
 }

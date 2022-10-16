@@ -1,13 +1,14 @@
-package ru.student;
+package ru.students;
 
 
-import ru.student.model.StudentRequestDto;
+import ru.students.model.StudentRequestAddingDto;
+import ru.students.model.StudentRequestDto;
 
 import java.util.List;
 
 public interface StudentService {
 
-    StudentRequestDto addStudent(StudentRequestDto studentRequestDto);
+    StudentRequestDto addStudent(StudentRequestAddingDto studentRequestDto);
 
     StudentRequestDto updateStudent(Long studentId, StudentRequestDto studentRequestDto);
 

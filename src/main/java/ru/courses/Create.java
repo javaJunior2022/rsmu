@@ -1,4 +1,8 @@
 package ru.courses;
 
-public interface Create {
+
+
+public interface Create  {
+
+
 }

@@ -20,7 +20,7 @@ create table if not exists students
     name       varchar not null,
     patronymic varchar not null,
     "group"    integer not null,
-    "isActive" boolean
+    is_active  boolean
 );
 
 alter table students
@@ -43,12 +43,12 @@ alter table "studentAndCourses"
 
 create table if not exists sessions
 (
-    id          serial
+    id         serial
         primary key,
-    name        varchar not null,
-    start       timestamp with time zone,
-    "maxRating" integer,
-    course_id   integer not null
+    name       varchar not null,
+    start_date timestamp with time zone,
+    max_rating integer,
+    course_id  integer not null
         constraint course_id
             references courses
 );

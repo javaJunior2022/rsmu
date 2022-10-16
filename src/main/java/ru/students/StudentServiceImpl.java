@@ -1,11 +1,13 @@
-package ru.student;
+package ru.students;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.student.model.Student;
-import ru.student.model.StudentRequestDto;
-import ru.student.storage.StudentRepository;
+import ru.Exceptions.StudentNotFoundException;
+import ru.students.model.Student;
+import ru.students.model.StudentRequestAddingDto;
+import ru.students.model.StudentRequestDto;
+import ru.students.storage.StudentRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -23,11 +25,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentRequestDto addStudent(StudentRequestDto studentRequestDto) {
+    public StudentRequestDto addStudent(StudentRequestAddingDto studentRequestDto) {
         log.info("addStudent ", studentRequestDto);
         Student student;
         try {
-            student = studentRepository.save(StudentMapper.toEntity(studentRequestDto));
+            student = studentRepository.save(StudentMapper.toEntityStudentRequestAddingDto(studentRequestDto));
         } catch (RuntimeException e) {
             log.info(String.valueOf(e));
             throw new RuntimeException(e);
@@ -38,7 +40,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentRequestDto updateStudent(Long studentId, StudentRequestDto studentRequestDto) {
-        return null;
+        log.info("'updateStudent' " + studentId + " dto=" + studentRequestDto);
+        return studentRepository.findById(studentId).map(student -> {
+            Student student1 = StudentMapper.updateFromStudentRequestDto(student, studentRequestDto);
+            studentRepository.save(student1);
+            return StudentMapper.toStudentRequestDto(student1);
+        }).orElseThrow(() -> new StudentNotFoundException(Long.toString(studentId)));
     }
 
     @Override

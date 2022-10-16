@@ -2,7 +2,6 @@ package ru.courses.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,15 +9,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import ru.LocalDateTimeConverter;
 
 import javax.persistence.Convert;
-
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequestDto {
+public class CourseRequestAddingDto {
 
-    private Long id;
+    @ApiModelProperty(required = true, example = "3 курс")
     private String name;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)

@@ -3,12 +3,21 @@ package ru.courses;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.courses.model.Course;
+import ru.courses.model.CourseRequestAddingDto;
 import ru.courses.model.CourseRequestDto;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CourseMapper {
 
     public static Course toEntity(CourseRequestDto courseRequestDto) {
+        Course course = new Course();
+        course.setName(courseRequestDto.getName());
+        course.setStartDate(courseRequestDto.getStart_date());
+        course.setEndDate(courseRequestDto.getStart_date());
+        course.setIsActive(courseRequestDto.getIsActive());
+        return course;
+    }
+    public static Course CourseRequestAddingDto(CourseRequestAddingDto courseRequestDto) {
         Course course = new Course();
         course.setName(courseRequestDto.getName());
         course.setStartDate(courseRequestDto.getStart_date());
@@ -42,4 +51,5 @@ public class CourseMapper {
         }
         return course;
     }
+
 }
